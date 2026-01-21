@@ -12,3 +12,16 @@ The four tribes are:
 ## Try it out
 
 👉 https://hamandchees3.github.io/ai-tribes/
+
+
+## Group-Specific Links
+
+You can create group-specific links so each group sees only their own pins. A badge below the title shows which group they're in.
+
+**Usage:**
+
+| Parameter | URL |
+| --- | --- |
+| `?group=founders` | https://hamandchees3.github.io/ai-tribes/?group=founders |
+| `?group=policy-team` | https://hamandchees3.github.io/ai-tribes/?group=policy-team |
+| No parameter | Defaults to "default" group |
