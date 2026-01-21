@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2x2 Survey</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Where do you fall?</h1>
+
+        <div class="name-input">
+            <label for="name">Your name:</label>
+            <input type="text" id="name" placeholder="Enter your name" autocomplete="off">
+        </div>
+
+        <p class="instructions">Click on the chart to place your pin</p>
+
+        <div class="chart-container" id="chart">
+            <!-- 2x2 grid placeholder -->
+            <div class="grid-overlay">
+                <div class="quadrant q1"></div>
+                <div class="quadrant q2"></div>
+                <div class="quadrant q3"></div>
+                <div class="quadrant q4"></div>
+            </div>
+            <div class="axis-label top">High Y</div>
+            <div class="axis-label bottom">Low Y</div>
+            <div class="axis-label left">Low X</div>
+            <div class="axis-label right">High X</div>
+            <!-- Pins will be inserted here dynamically -->
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
