@@ -37,6 +37,10 @@ try {
 // DOM elements
 const chart = document.getElementById('chart');
 const nameInput = document.getElementById('name');
+const removeBtn = document.getElementById('remove-btn');
+
+// Track current pins data for button visibility
+let currentPinsData = null;
 
 // Generate consistent color from name
 function nameToColor(name) {
@@ -112,10 +116,35 @@ chart.addEventListener('click', (e) => {
         displayName: name
     }).then(() => {
         showStatus(`Pin placed for ${name}`, 'success');
+        updateRemoveButton();
     }).catch((error) => {
         showStatus('Error saving pin: ' + error.message, 'error');
     });
 });
+
+// Handle remove button click
+removeBtn.addEventListener('click', () => {
+    const name = nameInput.value.trim();
+    if (!name || !pinsRef) return;
+
+    const nameKey = name.toLowerCase();
+    pinsRef.child(nameKey).remove().then(() => {
+        showStatus(`Pin removed for ${name}`, 'success');
+        updateRemoveButton();
+    }).catch((error) => {
+        showStatus('Error removing pin: ' + error.message, 'error');
+    });
+});
+
+// Update remove button visibility
+function updateRemoveButton() {
+    const name = nameInput.value.trim().toLowerCase();
+    const hasPin = name && currentPinsData && currentPinsData[name];
+    removeBtn.style.display = hasPin ? 'inline-block' : 'none';
+}
+
+// Update button when name input changes
+nameInput.addEventListener('input', updateRemoveButton);
 
 // Listen for real-time updates
 if (pinsRef) {
@@ -147,6 +176,7 @@ function showStatus(message, type) {
 
 // Render pins with display name
 function renderPins(pinsData) {
+    currentPinsData = pinsData;
     document.querySelectorAll('.pin').forEach(pin => pin.remove());
 
     if (pinsData) {
@@ -156,4 +186,5 @@ function renderPins(pinsData) {
             chart.appendChild(pin);
         });
     }
+    updateRemoveButton();
 }

@@ -48,6 +48,21 @@ h1 {
     border-color: #007bff;
 }
 
+.remove-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.remove-btn:hover {
+    background: #c82333;
+}
+
 .instructions {
     text-align: center;
     color: #666;
