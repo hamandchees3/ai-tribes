@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2x2 Survey</title>
+    <title>AI Tribes Survey</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Where do you fall?</h1>
+        <h1>What's your AI Tribe?</h1>
 
         <div class="name-input">
             <label for="name">Your name:</label>
@@ -19,17 +19,39 @@
         <p class="instructions">Click on the chart to place your pin</p>
 
         <div class="chart-container" id="chart">
-            <!-- 2x2 grid placeholder -->
+            <!-- 2x2 grid -->
             <div class="grid-overlay">
-                <div class="quadrant q1"></div>
-                <div class="quadrant q2"></div>
-                <div class="quadrant q3"></div>
-                <div class="quadrant q4"></div>
+                <div class="quadrant q-techno">
+                    <div class="tribe-label techno-label">
+                        <strong>Techno-optimist:</strong><br>
+                        leave us alone,<br>everything will be fine
+                    </div>
+                </div>
+                <div class="quadrant q-eacc">
+                    <div class="tribe-label eacc-label">
+                        E/ACC: BUILD<br>THE MACHINE GOD
+                    </div>
+                </div>
+                <div class="quadrant q-safety">
+                    <div class="tribe-label safety-label">
+                        <strong>Safetyist:</strong><br>
+                        regulate to require<br>safety and anti-bias
+                    </div>
+                </div>
+                <div class="quadrant q-doomer">
+                    <div class="tribe-label doomer-label">
+                        <strong>Doomer:</strong> slow down<br>capabilities research
+                    </div>
+                </div>
             </div>
-            <div class="axis-label top">High Y</div>
-            <div class="axis-label bottom">Low Y</div>
-            <div class="axis-label left">Low X</div>
-            <div class="axis-label right">High X</div>
+            <!-- Axis lines -->
+            <div class="axis-line vertical"></div>
+            <div class="axis-line horizontal"></div>
+            <!-- Axis labels -->
+            <div class="axis-label top">And that means go fast</div>
+            <div class="axis-label bottom">And that means slow down</div>
+            <div class="axis-label left">Equivalent to<br>the internet</div>
+            <div class="axis-label right">1,000,000x<br>More powerful</div>
             <!-- Pins will be inserted here dynamically -->
         </div>
     </div>

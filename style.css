@@ -90,43 +90,136 @@ h1 {
 }
 
 .quadrant {
-    border: 1px solid #ccc;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
 }
 
-.q1 { background: #e3f2fd; }
-.q2 { background: #fff3e0; }
-.q3 { background: #f3e5f5; }
-.q4 { background: #e8f5e9; }
+/* Quadrant colors matching the AI Tribes chart */
+.q-techno { background: #f4c2c2; } /* Pink/salmon */
+.q-eacc { background: #87ceeb; }   /* Sky blue */
+.q-safety { background: #c1e1c1; } /* Soft green */
+.q-doomer { background: #ffffb3; } /* Pale yellow */
 
+/* Tribe labels */
+.tribe-label {
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.4;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+}
+
+.techno-label {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #333;
+}
+
+.eacc-label {
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    background: #111;
+    padding: 10px 14px;
+    letter-spacing: 1px;
+}
+
+.safety-label {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #333;
+    background: white;
+    border: 2px solid #333;
+    border-radius: 20px;
+    padding: 10px 14px;
+    position: relative;
+}
+
+.safety-label::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #333;
+}
+
+.doomer-label {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #fff;
+    background: rgba(80, 80, 80, 0.85);
+    padding: 10px 14px;
+    border-radius: 12px;
+}
+
+/* Axis lines */
+.axis-line {
+    position: absolute;
+    background: #333;
+    z-index: 2;
+}
+
+.axis-line.vertical {
+    width: 2px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.axis-line.horizontal {
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Axis labels */
 .axis-label {
     position: absolute;
-    font-size: 12px;
-    color: #666;
+    font-size: 13px;
+    color: #333;
     font-weight: 500;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    z-index: 3;
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    user-select: none;
 }
 
 .axis-label.top {
-    top: 5px;
+    top: 4px;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .axis-label.bottom {
-    bottom: 5px;
+    bottom: 4px;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .axis-label.left {
-    left: 5px;
+    left: 4px;
     top: 50%;
     transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: translateY(-50%) rotate(180deg);
 }
 
 .axis-label.right {
-    right: 5px;
+    right: 4px;
     top: 50%;
     transform: translateY(-50%);
+    writing-mode: vertical-rl;
 }
 
 /* Pin styles */

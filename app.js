@@ -74,20 +74,6 @@ function createPin(name, x, y) {
     return pin;
 }
 
-// Render all pins from data
-function renderPins(pinsData) {
-    // Remove existing pins
-    document.querySelectorAll('.pin').forEach(pin => pin.remove());
-
-    // Add pins from data
-    if (pinsData) {
-        Object.entries(pinsData).forEach(([name, coords]) => {
-            const pin = createPin(name, coords.x, coords.y);
-            chart.appendChild(pin);
-        });
-    }
-}
-
 // Handle chart click
 chart.addEventListener('click', (e) => {
     const name = nameInput.value.trim();
