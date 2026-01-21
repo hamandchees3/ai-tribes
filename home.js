@@ -81,24 +81,113 @@ copyBtn.addEventListener('click', async () => {
     }, 3000);
 });
 
+// Check if an entry is a group (has nested user objects) vs a direct user pin
+function isGroup(value) {
+    if (typeof value !== 'object' || value === null) return false;
+    // Direct user pins have x, y properties at top level
+    // Groups have nested objects with x, y inside
+    if ('x' in value && 'y' in value) return false;
+    // Check if it has at least one nested object with x, y
+    return Object.values(value).some(v =>
+        typeof v === 'object' && v !== null && 'x' in v && 'y' in v
+    );
+}
+
+// Store current groups data for CSV export
+let currentGroupsData = {};
+
+// Download group data as CSV
+function downloadCSV(groupName) {
+    const groupData = currentGroupsData[groupName];
+    if (!groupData) return;
+
+    // CSV header
+    let csv = 'name,x,y\n';
+
+    // Add each pin as a row
+    Object.entries(groupData).forEach(([key, pin]) => {
+        const name = pin.displayName || key;
+        // Escape quotes in names
+        const escapedName = name.replace(/"/g, '""');
+        csv += `"${escapedName}",${pin.x},${pin.y}\n`;
+    });
+
+    // Create and trigger download
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${groupName}-responses.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Delete a group permanently
+function deleteGroup(groupName) {
+    if (!confirm(`Are you sure you want to permanently delete the group "${groupName}" and all its data?`)) {
+        return;
+    }
+
+    pinsRef.child(groupName).remove()
+        .then(() => {
+            console.log(`Group ${groupName} deleted`);
+        })
+        .catch((error) => {
+            alert('Error deleting group: ' + error.message);
+        });
+}
+
 // Load and display existing groups
 pinsRef.on('value', (snapshot) => {
     const data = snapshot.val();
 
     if (!data) {
         groupsList.innerHTML = '<p class="no-groups">No groups yet. Create one above!</p>';
+        currentGroupsData = {};
         return;
     }
 
-    const groups = Object.entries(data).map(([name, pins]) => ({
-        name,
-        count: Object.keys(pins).length
-    })).sort((a, b) => b.count - a.count); // Sort by participant count
+    // Filter to only actual groups (not direct user entries from old data)
+    const groupEntries = Object.entries(data).filter(([name, value]) => isGroup(value));
+
+    // Store for CSV export
+    currentGroupsData = Object.fromEntries(groupEntries);
+
+    const groups = groupEntries
+        .map(([name, pins]) => ({
+            name,
+            count: Object.keys(pins).length
+        }))
+        .sort((a, b) => b.count - a.count);
+
+    if (groups.length === 0) {
+        groupsList.innerHTML = '<p class="no-groups">No groups yet. Create one above!</p>';
+        return;
+    }
 
     groupsList.innerHTML = groups.map(group => `
-        <a href="${getSurveyLink(group.name)}" class="group-item">
-            <span class="group-name">${group.name}</span>
-            <span class="group-count">${group.count} ${group.count === 1 ? 'pin' : 'pins'}</span>
-        </a>
+        <div class="group-item">
+            <a href="${getSurveyLink(group.name)}" class="group-link">
+                <span class="group-name">${group.name}</span>
+                <span class="group-count">${group.count} ${group.count === 1 ? 'pin' : 'pins'}</span>
+            </a>
+            <div class="group-actions">
+                <button class="action-btn download-btn" onclick="downloadCSV('${group.name}')" title="Download CSV">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                </button>
+                <button class="action-btn delete-btn" onclick="deleteGroup('${group.name}')" title="Delete group">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
     `).join('');
 });
