@@ -9,6 +9,10 @@ const firebaseConfig = {
     appId: "1:982114850953:web:b88e3cd68f698c5c830e58"
 };
 
+// Get group from URL parameter (e.g., ?group=founders)
+const urlParams = new URLSearchParams(window.location.search);
+const groupName = urlParams.get('group') || 'default';
+
 // Initialize Firebase
 let db = null;
 let pinsRef = null;
@@ -16,8 +20,9 @@ let pinsRef = null;
 try {
     firebase.initializeApp(firebaseConfig);
     db = firebase.database();
-    pinsRef = db.ref('pins');
-    showStatus('Connected to database', 'success');
+    // Store pins under group-specific path
+    pinsRef = db.ref(`pins/${groupName}`);
+    showStatus(`Connected to group: ${groupName}`, 'success');
 } catch (error) {
     showStatus('Firebase not configured. See console for setup instructions.', 'error');
     console.log(`
@@ -38,6 +43,10 @@ try {
 const chart = document.getElementById('chart');
 const nameInput = document.getElementById('name');
 const removeBtn = document.getElementById('remove-btn');
+const groupBadge = document.getElementById('group-badge');
+
+// Display group name
+groupBadge.innerHTML = `Group: <span>${groupName}</span>`;
 
 // Track current pins data for button visibility
 let currentPinsData = null;
