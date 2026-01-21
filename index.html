@@ -5,61 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Tribes Survey</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
-    <div class="container">
-        <h1>What's your AI Tribe?</h1>
-        <div class="group-badge" id="group-badge"></div>
+    <div class="home-container">
+        <h1>AI Tribes Survey</h1>
+        <p class="subtitle">Create group-specific surveys to see where your team falls on the AI ideology spectrum.</p>
 
-        <div class="name-input">
-            <label for="name">Your name:</label>
-            <input type="text" id="name" placeholder="Enter your name" autocomplete="off">
-            <button id="remove-btn" class="remove-btn" style="display: none;">Remove pin</button>
+        <!-- Create new group -->
+        <div class="create-group">
+            <h2>Create a Group</h2>
+            <div class="input-row">
+                <input type="text" id="new-group" placeholder="Enter group name (e.g., founders)" autocomplete="off">
+                <button id="create-btn">Create</button>
+            </div>
+            <div class="link-row" id="link-row" style="display: none;">
+                <input type="text" id="group-link" readonly>
+                <button id="copy-btn">Copy</button>
+            </div>
+            <p class="copy-status" id="copy-status"></p>
         </div>
 
-        <p class="instructions">Click on the chart to place your pin</p>
-
-        <div class="chart-container" id="chart">
-            <!-- 2x2 grid -->
-            <div class="grid-overlay">
-                <div class="quadrant q-techno">
-                    <div class="tribe-label techno-label">
-                        <strong>Techno-optimist:</strong><br>
-                        leave us alone,<br>everything will be fine
-                    </div>
-                </div>
-                <div class="quadrant q-eacc">
-                    <div class="tribe-label eacc-label">
-                        E/ACC: BUILD<br>THE MACHINE GOD
-                    </div>
-                </div>
-                <div class="quadrant q-safety">
-                    <div class="tribe-label safety-label">
-                        <strong>Safetyist:</strong><br>
-                        regulate to require<br>safety and anti-bias
-                    </div>
-                </div>
-                <div class="quadrant q-doomer">
-                    <div class="tribe-label doomer-label">
-                        <strong>Doomer:</strong> slow down<br>capabilities research
-                    </div>
-                </div>
+        <!-- Existing groups -->
+        <div class="existing-groups">
+            <h2>Existing Groups</h2>
+            <div id="groups-list" class="groups-list">
+                <p class="loading">Loading groups...</p>
             </div>
-            <!-- Axis lines -->
-            <div class="axis-line vertical"></div>
-            <div class="axis-line horizontal"></div>
-            <!-- Axis labels -->
-            <div class="axis-label top">And that means go fast</div>
-            <div class="axis-label bottom">And that means slow down</div>
-            <div class="axis-label left">Equivalent to<br>the internet</div>
-            <div class="axis-label right">1,000,000x<br>More powerful</div>
-            <!-- Pins will be inserted here dynamically -->
         </div>
     </div>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-    <script src="app.js"></script>
+    <script src="home.js"></script>
 </body>
 </html>

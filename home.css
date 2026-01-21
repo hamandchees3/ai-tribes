@@ -1,0 +1,141 @@
+.home-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.home-container h1 {
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+    line-height: 1.5;
+}
+
+.create-group,
+.existing-groups {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.create-group h2,
+.existing-groups h2 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.input-row,
+.link-row {
+    display: flex;
+    gap: 10px;
+}
+
+.input-row input,
+.link-row input {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.input-row input:focus {
+    border-color: #007bff;
+}
+
+.link-row {
+    margin-top: 12px;
+}
+
+.link-row input {
+    background: #f8f9fa;
+    color: #495057;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.input-row button,
+.link-row button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#create-btn {
+    background: #007bff;
+    color: white;
+}
+
+#create-btn:hover {
+    background: #0056b3;
+}
+
+#copy-btn {
+    background: #28a745;
+    color: white;
+}
+
+#copy-btn:hover {
+    background: #1e7e34;
+}
+
+.copy-status {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #28a745;
+    min-height: 20px;
+}
+
+.groups-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    transition: background 0.2s;
+}
+
+.group-item:hover {
+    background: #e9ecef;
+}
+
+.group-name {
+    font-weight: 500;
+}
+
+.group-count {
+    font-size: 12px;
+    color: #666;
+    background: #dee2e6;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.loading,
+.no-groups {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+    font-size: 14px;
+}
